@@ -15,6 +15,14 @@ const projectSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    projectLink: {
+      type: String,
+      required: true,
+    },
+    githubLink: {
+      type: String,
+      required: true,
+    },
     image: {
       type: String,
       default:
