@@ -97,7 +97,7 @@ export const updateproject = async (req, res, next) => {
       {
         $set: {
           title: req.body.title,
-          projectLink: req.boy.projectLink,
+          projectLink: req.body.projectLink,
           githubLink: req.body.githubLink,
           content: req.body.content,
           category: req.body.category,

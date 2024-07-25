@@ -89,7 +89,7 @@ export default function DashProjects() {
               </Table.HeadCell>
             </Table.Head>
             {userProjects.map((project) => (
-              <Table.Body className="divide-y">
+              <Table.Body className="divide-y" key={project._id}>
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     {new Date(project.updatedAt).toLocaleDateString()}
