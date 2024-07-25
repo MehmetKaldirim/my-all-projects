@@ -12,6 +12,7 @@ import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
 import CreateProject from "./pages/CreateProject";
 import ProjectPage from "./pages/ProjectPage";
 import UpdateProject from "./pages/UpdateProject";
+import Search from "./pages/Search";
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
         </Route>
 
         <Route path="/project/:projectSlug" element={<ProjectPage />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
       <Footer />
