@@ -34,7 +34,7 @@ export const getprojects = async (req, res, next) => {
     const projects = await Project.find({
       ...(req.query.userId && { userId: req.query.userId }),
       ...(req.query.category && { category: req.query.category }),
-      ...(req.query.slug && { category: req.query.slug }),
+      ...(req.query.slug && { slug: req.query.slug }),
       ...(req.query.projectId && { _id: req.query.projectId }),
       ...(req.query.searchTerm && {
         $or: [

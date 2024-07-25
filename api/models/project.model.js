@@ -21,7 +21,7 @@ const projectSchema = new mongoose.Schema(
     },
     githubLink: {
       type: String,
-      required: true,
+      default: "https://github.com/MehmetKaldirim",
     },
     image: {
       type: String,
