@@ -141,7 +141,7 @@ export default function CreateProject() {
           />
           <Button
             type="button"
-            gradientDuoTone="purpleToBlue"
+            gradientDuoTone="tealToLime"
             size="sm"
             outline
             onClick={handleUpdloadImage}
@@ -176,7 +176,7 @@ export default function CreateProject() {
             setFormData({ ...formData, content: value });
           }}
         />
-        <Button type="submit" gradientDuoTone="purpleToPink">
+        <Button type="submit" gradientDuoTone="tealToLime">
           Publish
         </Button>
         {publishError && (
