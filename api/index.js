@@ -4,10 +4,11 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import projectRoutes from "./routes/project.route.js";
+import categoryRoutes from "./routes/category.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5001;
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.listen(port, () => {
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/project", projectRoutes);
+app.use("/api/category", categoryRoutes);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
