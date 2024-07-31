@@ -29,7 +29,6 @@ export default function CreateProject() {
         const res = await fetch("/api/category/");
         const data = await res.json();
         if (res.ok) {
-          console.log("ok = " + data.categories);
           setCategories(data.categories);
         } else {
           console.error("Failed to fetch categories");
@@ -97,7 +96,7 @@ export default function CreateProject() {
 
       if (res.ok) {
         setPublishError(null);
-        navigate(`/project/${data.slug}`);
+        navigate("/dashboard?tab=projects");
       }
     } catch (error) {
       setPublishError("Something went wrong");

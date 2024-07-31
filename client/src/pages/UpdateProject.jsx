@@ -19,6 +19,7 @@ export default function UpdateProject() {
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
+  const [categories, setCategories] = useState([]);
   const [publishError, setPublishError] = useState(null);
   const { projectId } = useParams();
 
@@ -26,8 +27,8 @@ export default function UpdateProject() {
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    try {
-      const fetchProject = async () => {
+    const fetchProject = async () => {
+      try {
         const res = await fetch(
           `/api/project/getprojects?projectId=${projectId}`
         );
@@ -41,13 +42,31 @@ export default function UpdateProject() {
           setPublishError(null);
           setFormData(data.projects[0]);
         }
-      };
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-      fetchProject();
-    } catch (error) {
-      console.log(error.message);
-    }
+    fetchProject();
   }, [projectId]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/category/");
+        const data = await res.json();
+        if (res.ok) {
+          setCategories(data.categories);
+        } else {
+          console.error("Failed to fetch categories");
+        }
+      } catch (error) {
+        console.error("Error fetching categories", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleUpdloadImage = async () => {
     try {
@@ -109,12 +128,13 @@ export default function UpdateProject() {
 
       if (res.ok) {
         setPublishError(null);
-        navigate(`/project/${data.slug}`);
+        navigate("/dashboard?tab=projects");
       }
     } catch (error) {
       setPublishError("Something went wrong");
     }
   };
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">
@@ -140,10 +160,11 @@ export default function UpdateProject() {
             value={formData.category}
           >
             <option value="uncategorized">Select a category</option>
-            <option value="javascript">JavaScript</option>
-            <option value="mern">MERN</option>
-            <option value="reactjs">React.js</option>
-            <option value="nextjs">Next.js</option>
+            {categories.map((category) => (
+              <option key={category._id} value={category.title}>
+                {category.title}
+              </option>
+            ))}
           </Select>
         </div>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
