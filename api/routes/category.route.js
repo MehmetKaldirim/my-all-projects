@@ -1,11 +1,15 @@
 import express from "express";
-import { test } from "../controllers/user.controller.js";
+import {
+  gest,
+  create,
+  deleteCategory,
+} from "../controllers/category.controller.js";
 import { verifyToken } from "../utils/verifyUser.js";
 
 const router = express.Router();
 
-router.get("/test", test);
-//router.put("/update/:userId", verifyToken, updateUser);
-//router.delete("/delete/:userId", verifyToken, deleteUser);
+router.get("/gest", gest);
+router.post("/create", verifyToken, create);
+router.delete("/delete/:categoryId", verifyToken, deleteCategory);
 
 export default router;
