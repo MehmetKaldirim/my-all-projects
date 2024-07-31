@@ -118,9 +118,14 @@ export default function Header() {
           <Link to="/about">About</Link>
         </Navbar.Link>
         {currentUser && currentUser.isAdmin ? (
-          <Navbar.Link active={path === "/projects"} as={"div"}>
-            <Link to="/create-project">Add Projects</Link>
-          </Navbar.Link>
+          <>
+            <Navbar.Link active={path === "/projects"} as={"div"}>
+              <Link to="/create-project">Add Project</Link>
+            </Navbar.Link>
+            <Navbar.Link active={path === "/categories"} as={"div"}>
+              <Link to="/add-category">Add Category</Link>
+            </Navbar.Link>
+          </>
         ) : (
           <Navbar.Link active={path === "/projects"} as={"div"}>
             <Link to="/projects"> Projects</Link>

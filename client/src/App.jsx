@@ -13,6 +13,7 @@ import CreateProject from "./pages/CreateProject";
 import ProjectPage from "./pages/ProjectPage";
 import UpdateProject from "./pages/UpdateProject";
 import Search from "./pages/Search";
+import AddCategory from "./pages/AddCategory";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         </Route>
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path="/create-project" element={<CreateProject />} />
+          <Route path="/add-category" element={<AddCategory />} />
           <Route
             path="/update-project/:projectId"
             element={<UpdateProject />}
