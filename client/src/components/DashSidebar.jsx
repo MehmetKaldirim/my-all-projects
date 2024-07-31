@@ -1,5 +1,6 @@
 import { Sidebar } from "flowbite-react";
 import { HiUser, HiArrowSmRight, HiDocumentText } from "react-icons/hi";
+import { BiCategoryAlt } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { signoutSuccess } from "../redux/user/userSlice";
@@ -62,7 +63,7 @@ export default function DashSidebar() {
             <Link to="/dashboard?tab=categories">
               <Sidebar.Item
                 active={tab === "categories"}
-                icon={HiDocumentText}
+                icon={BiCategoryAlt}
                 as="div"
               >
                 Categories
