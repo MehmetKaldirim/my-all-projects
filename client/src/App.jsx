@@ -14,6 +14,7 @@ import ProjectPage from "./pages/ProjectPage";
 import UpdateProject from "./pages/UpdateProject";
 import Search from "./pages/Search";
 import AddCategory from "./pages/AddCategory";
+import UpdateCategory from "./pages/UpdateCategory";
 
 export default function App() {
   return (
@@ -33,6 +34,10 @@ export default function App() {
           <Route
             path="/update-project/:projectId"
             element={<UpdateProject />}
+          />
+          <Route
+            path="/update-category/:categoryId"
+            element={<UpdateCategory />}
           />
         </Route>
 

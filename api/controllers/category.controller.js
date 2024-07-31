@@ -7,11 +7,22 @@ export const gest = (req, res) => {
 };
 
 export const create = async (req, res, next) => {
+  // Check if the user is an admin
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "You are not allowed to create a project"));
   }
+
+  // Check if the title is provided
   if (!req.body.title) {
-    return next(errorHandler(400, "Please enter title"));
+    return next(errorHandler(400, "Please enter a title"));
+  }
+
+  // Check if the title contains at least three characters
+  const title = req.body.title.trim();
+  if (title.length < 3) {
+    return next(
+      errorHandler(400, "The title must contain at least three characters")
+    );
   }
 
   const newCategory = new Category({
@@ -63,6 +74,44 @@ export const getCategories = async (req, res, next) => {
     res.status(200).json({
       categories,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const update = async (req, res, next) => {
+  // Check if the user is an admin
+  if (!req.user.isAdmin) {
+    return next(
+      errorHandler(403, "You are not allowed to update this category")
+    );
+  }
+
+  // Check if the title is provided
+  if (!req.body.title) {
+    return next(errorHandler(400, "Please enter a title"));
+  }
+
+  // Check if the title contains at least three characters
+  const title = req.body.title.trim();
+  if (title.length < 3) {
+    return next(
+      errorHandler(400, "The title must contain at least three characters")
+    );
+  }
+
+  try {
+    const updatedCategory = await Category.findByIdAndUpdate(
+      req.params.categoryId,
+      { title: req.body.title },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedCategory) {
+      return next(errorHandler(404, "Category not found"));
+    }
+
+    res.status(200).json(updatedCategory);
   } catch (error) {
     next(error);
   }
