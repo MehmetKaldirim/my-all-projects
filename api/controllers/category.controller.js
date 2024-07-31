@@ -116,3 +116,21 @@ export const update = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getCategoryById = async (req, res, next) => {
+  try {
+    const category = await Category.findById(req.params.categoryId);
+
+    if (!category) {
+      return next(errorHandler(404, "Category not found"));
+    }
+
+    res.status(200).json(category);
+  } catch (error) {
+    // Check if the error is related to an invalid ID format
+    if (error.kind === "ObjectId") {
+      return next(errorHandler(400, "Invalid category ID format"));
+    }
+    next(error);
+  }
+};

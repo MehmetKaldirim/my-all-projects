@@ -89,7 +89,6 @@ export default function UpdateProject() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("was" + formData.projectLink);
       const res = await fetch(
         `/api/project/updateproject/${formData._id}/${currentUser._id}`,
         {

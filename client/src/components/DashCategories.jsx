@@ -36,7 +36,6 @@ export default function DashCategories() {
   const handleDeleteCategory = async () => {
     setShowModal(false);
     try {
-      console.log("delte begin");
       const res = await fetch(`/api/category/delete/${categoryIdToDelete}`, {
         method: "DELETE",
       });

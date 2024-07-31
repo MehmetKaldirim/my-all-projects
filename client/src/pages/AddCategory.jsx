@@ -26,7 +26,7 @@ export default function AddCategory() {
 
       if (res.ok) {
         setPublishError(null);
-        navigate("/");
+        navigate("/dashboard?tab=categories");
       }
     } catch (error) {
       setPublishError("Something went wrong");
