@@ -8,7 +8,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -19,10 +19,30 @@ export default function CreateProject() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const [categories, setCategories] = useState([]); // State for categories
 
   const navigate = useNavigate();
 
-  const handleUpdloadImage = async () => {
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/category/");
+        const data = await res.json();
+        if (res.ok) {
+          console.log("ok = " + data.categories);
+          setCategories(data.categories);
+        } else {
+          console.error("Failed to fetch categories");
+        }
+      } catch (error) {
+        console.error("Error fetching categories", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleUploadImage = async () => {
     try {
       if (!file) {
         setImageUploadError("Please select an image");
@@ -58,6 +78,7 @@ export default function CreateProject() {
       console.log(error);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -82,6 +103,7 @@ export default function CreateProject() {
       setPublishError("Something went wrong");
     }
   };
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">
@@ -105,10 +127,11 @@ export default function CreateProject() {
             }
           >
             <option value="uncategorized">Select a category</option>
-            <option value="javascript">JavaScript</option>
-            <option value="mern">MERN</option>
-            <option value="reactjs">React.js</option>
-            <option value="nextjs">Next.js</option>
+            {categories.map((category) => (
+              <option key={category._id} value={category.title}>
+                {category.title}
+              </option>
+            ))}
           </Select>
         </div>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
@@ -144,7 +167,7 @@ export default function CreateProject() {
             gradientDuoTone="tealToLime"
             size="sm"
             outline
-            onClick={handleUpdloadImage}
+            onClick={handleUploadImage}
             disabled={imageUploadProgress}
           >
             {imageUploadProgress ? (

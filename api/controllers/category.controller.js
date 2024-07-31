@@ -52,3 +52,18 @@ export const deleteCategory = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getCategories = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(403, "You are not allowed to see all categories"));
+  }
+  try {
+    const categories = await Category.find();
+
+    res.status(200).json({
+      categories,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
